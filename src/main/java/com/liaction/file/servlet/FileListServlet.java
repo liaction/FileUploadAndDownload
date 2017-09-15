@@ -16,11 +16,10 @@ public class FileListServlet extends BaseServlet {
             throws ServletException, IOException {
         super.doGet(request, response);
         //获取上传文件的目录
-        String uploadFilePath = this.getServletContext().getRealPath(FileUtils.FILE_PATH);
         //存储要下载的文件名
         Map<String, String> fileNameMap = new HashMap<String, String>();
         //递归遍历filepath目录下的所有文件和目录，将文件的文件名存储到map集合中
-        listFile(new File(uploadFilePath), fileNameMap);//File既可以代表一个文件也可以代表一个目录
+        listFile(new File(FileUtils.FILE_PATH), fileNameMap);//File既可以代表一个文件也可以代表一个目录
         //将Map集合发送到listfile.jsp页面进行显示
         request.setAttribute("fileNames", fileNameMap);
         request.getRequestDispatcher("/list_files.jsp").forward(request, response);

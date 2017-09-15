@@ -23,16 +23,15 @@ public class FileDownloadServlet extends BaseServlet {
         //得到要下载的文件名
         String fileName = request.getParameter("filename");  //23239283-92489-阿凡达.avi
         fileName = new String(fileName.getBytes("iso8859-1"), "UTF-8");
-        //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
-        String fileSaveRootPath = this.getServletContext().getRealPath(FileUtils.FILE_PATH);
+
         //通过文件名找出文件的所在目录
-        String path = FileUtils.getFilePath(fileName, fileSaveRootPath);
+        String path = FileUtils.getFilePath(fileName, FileUtils.FILE_PATH);
         //得到要下载的文件
         File file = new File(path + File.separator + fileName);
         //如果文件不存在
         if (!file.exists()) {
             request.setAttribute("message", "您要下载的资源已被删除！！");
-            request.getRequestDispatcher("/jsp/message.jsp").forward(request, response);
+            request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
         }
         //处理文件名
